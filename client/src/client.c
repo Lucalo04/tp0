@@ -2,6 +2,9 @@
 
 int main(void)
 {
+
+	log_create ("/home/utnso/Desktop","tp0",1,LOG_LEVEL_INFO);
+
 	/*---------------------------------------------------PARTE 2-------------------------------------------------------------*/
 
 	int conexion;
@@ -18,6 +21,7 @@ int main(void)
 
 	// Usando el logger creado previamente
 	// Escribi: "Hola! Soy un log"
+	log_info(logger, "clave_string");
 
 
 	/* ---------------- ARCHIVOS DE CONFIGURACION ---------------- */
@@ -26,6 +30,7 @@ int main(void)
 
 	// Usando el config creado previamente, leemos los valores del config y los 
 	// dejamos en las variables 'ip', 'puerto' y 'valor'
+
 
 	// Loggeamos el valor de config
 
@@ -38,31 +43,39 @@ int main(void)
 
 	// ADVERTENCIA: Antes de continuar, tenemos que asegurarnos que el servidor esté corriendo para poder conectarnos a él
 
-	// Creamos una conexión hacia el servidor
-	conexion = crear_conexion(ip, puerto);
+	// // Creamos una conexión hacia el servidor
+	// conexion = crear_conexion(ip, puerto);
 
-	// Enviamos al servidor el valor de CLAVE como mensaje
+	// // Enviamos al servidor el valor de CLAVE como mensaje
 
-	// Armamos y enviamos el paquete
-	paquete(conexion);
+	// // Armamos y enviamos el paquete
+	// paquete(conexion);
 
-	terminar_programa(conexion, logger, config);
+	// terminar_programa(conexion, logger, config);
 
-	/*---------------------------------------------------PARTE 5-------------------------------------------------------------*/
-	// Proximamente
+	// /*---------------------------------------------------PARTE 5-------------------------------------------------------------*/
+	// // Proximamente
+
+
 }
 
 t_log* iniciar_logger(void)
 {
-	t_log* nuevo_logger;
-
+	t_log* nuevo_logger = log_create("/home/utnso/Desktop/tp0/tp0.log", "Luca", true, LOG_LEVEL_INFO);
+	if (nuevo_logger == NULL)
+	{
+        //return 1;
+    }
 	return nuevo_logger;
 }
 
 t_config* iniciar_config(void)
 {
-	t_config* nuevo_config;
-
+	t_config* nuevo_config = config_create("/home/utnso/Desktop/tp0/cliente.config");
+	if (nuevo_config  == NULL)
+	{
+        //return 1;
+	}
 	return nuevo_config;
 }
 
@@ -95,6 +108,9 @@ void paquete(int conexion)
 
 void terminar_programa(int conexion, t_log* logger, t_config* config)
 {
+	log_destroy(logger);
+	config_destroy(config);
+
 	/* Y por ultimo, hay que liberar lo que utilizamos (conexion, log y config) 
 	  con las funciones de las commons y del TP mencionadas en el enunciado */
 }
