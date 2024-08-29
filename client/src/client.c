@@ -68,7 +68,7 @@ int main(void)
 
 t_log* iniciar_logger(void)
 {
-	t_log* nuevo_logger = log_create("/home/utnso/Desktop/tp0/tp0.log", "Luca", true, LOG_LEVEL_INFO);
+	t_log* nuevo_logger = log_create("tp0.log", "Cliente", true, LOG_LEVEL_INFO);
 	if (nuevo_logger == NULL)
 	{
         abort();
@@ -78,7 +78,7 @@ t_log* iniciar_logger(void)
 
 t_config* iniciar_config(void)
 {
-	t_config* nuevo_config = config_create("/home/utnso/Desktop/tp0/client/cliente.config");
+	t_config* nuevo_config = config_create("cliente.config");
 	if (nuevo_config  == NULL)
 	{
         abort();
@@ -100,9 +100,9 @@ void leer_consola(t_log* logger)
 	{
 
 		leido = readline("> ");
-
 		
-		if (leido == NULL)
+		
+		if (strcmp(leido,"") == 0)
 		{
 			log_info(logger,"entre");
 			break;
